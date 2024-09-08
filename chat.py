@@ -1,10 +1,12 @@
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-# 加载模型和tokenizer
-model_name = "/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-Instruct1"  # 替换为你具体的Llama 3模型路径或名称
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16)
+# 使用你提供的模型路径
+model_path = "/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-Instruct1"
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+tokenizer.pad_token = tokenizer.eos_token  # 将 eos_token 用作 pad_token
+
+model = AutoModelForCausalLM.from_pretrained(model_path, torch_dtype=torch.float16)
 model.eval()
 
 # 如果有GPU可以用，则使用GPU
@@ -23,7 +25,7 @@ def generate_response(messages):
     # 将对话历史拼接成文本格式，适应模型输入
     prompt = "\n".join([f"{msg['role'].capitalize()}: {msg['content']}" for msg in messages])
     
-    inputs = tokenizer(prompt, return_tensors="pt", truncation=True, padding=True)
+    inputs = tokenizer(prompt, return_tensors="pt", truncation=True, padding=True, max_length=512)  # 设置max_length
     inputs = {key: value.to(device) for key, value in inputs.items()}
     
     with torch.no_grad():
