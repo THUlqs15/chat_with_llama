@@ -1,12 +1,12 @@
+
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 # 使用你提供的模型路径
 model_path = "/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-Instruct1"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
-tokenizer.pad_token = tokenizer.eos_token
+tokenizer.pad_token = tokenizer.eos_token  # 将 eos_token 用作 pad_token
 tokenizer.padding_side = "left"
-
 model = AutoModelForCausalLM.from_pretrained(model_path, torch_dtype=torch.float16)
 model.eval()
 
@@ -26,11 +26,12 @@ def generate_response(messages):
     # 将对话历史拼接成文本格式，适应模型输入
     prompt = "\n".join([f"{msg['role'].capitalize()}: {msg['content']}" for msg in messages])
     
-    inputs = tokenizer(prompt, return_tensors="pt", truncation=True, padding=True, max_length=512)  # 设置max_length
+    inputs = tokenizer(prompt, return_tensors="pt", truncation=True, padding=True)
     inputs = {key: value.to(device) for key, value in inputs.items()}
     
     with torch.no_grad():
-        outputs = model.generate(**inputs, max_length=512, do_sample=True, top_p=0.95, temperature=0.7)
+        # 使用 max_new_tokens 控制生成的最大新token数，而不是 max_length
+        outputs = model.generate(**inputs, max_new_tokens=150, do_sample=True, top_p=0.95, temperature=0.7)
     
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)
     return response
