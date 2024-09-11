@@ -21,21 +21,36 @@ def torch_gc():
     if torch.cuda.is_available():
         torch.cuda.empty_cache()
 
-def generate_response(messages):
-    # 将对话历史拼接成文本格式，适应模型输入
-    prompt = "\n".join([f"{msg['role'].capitalize()}: {msg['content']}" for msg in messages])
-    
-    inputs = tokenizer(prompt, return_tensors="pt", truncation=True, padding=True)
-    inputs = {key: value.to(device) for key, value in inputs.items()}
-    
-    with torch.no_grad():
-        # 使用 max_new_tokens 控制生成的最大新token数，而不是 max_length
-        outputs = model.generate(**inputs, max_new_tokens=150, do_sample=True, top_p=0.95, temperature=0.7)
 
-    # 获取新生成的内容，不包括输入提示的部分
-    new_tokens = outputs[0, inputs['input_ids'].shape[-1]:]  # 截取新生成的token部分
-    response = tokenizer.decode(new_tokens, skip_special_tokens=True)
+def generate_response(messages):
+    # 将 messages 列表中的内容拼接成一个对话历史
+    conversation = ""
+    for message in messages:
+        role = message["role"]
+        content = message["content"]
+        if role == "user":
+            conversation += f"User: {content}\n"
+        elif role == "assistant":
+            conversation += f"Assistant: {content}\n"
+        elif role == "system":
+            conversation += f"System: {content}\n"
+
+    # 将对话历史转换为模型输入的格式
+    inputs = tokenizer(conversation, return_tensors="pt", truncation=True, padding=True)
+
+    # 使用模型生成回复
+    outputs = model.generate(inputs["input_ids"], max_length=2048, do_sample=True, temperature=0.7)
+
+    # 解码生成的回复
+    response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+    # 提取模型生成的回复
+    # 一般情况下模型生成的回复会包括整个 conversation 历史和新生成的部分
+    # 我们需要从中提取出模型最后生成的 Assistant 部分
+    response = response.split("Assistant:")[-1].strip()
+
     return response
+
 
 
 while True:
