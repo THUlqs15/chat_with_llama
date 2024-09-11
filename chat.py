@@ -34,6 +34,7 @@ def generate_response(messages):
         outputs = model.generate(**inputs, max_new_tokens=150, do_sample=True, top_p=0.95, temperature=0.7)
     
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    response = response.split("Assistant:")[-1].strip()
     return response
 
 while True:
