@@ -1,4 +1,6 @@
 import requests
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 class ChatAgent:
     def __init__(self):
@@ -6,7 +8,7 @@ class ChatAgent:
         self.current_model = 'model2'  # 初始使用标准模型model2
 
         # 加载 model2
-        self.tokenizer_model2 = LlamaTokenizer.from_pretrained('/root/lqs/llama-8B-instruct')
+        self.tokenizer_model2 = LlamaTokenizer.from_pretrained('/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-Instruct')
         self.model2 = LlamaForCausalLM.from_pretrained(
             '/root/lqs/llama-8B-instruct',
             device_map='auto',
@@ -15,7 +17,7 @@ class ChatAgent:
         self.model2.eval()
 
         # 加载 model1
-        self.tokenizer_model1 = LlamaTokenizer.from_pretrained('/path/to/model1')
+        self.tokenizer_model1 = LlamaTokenizer.from_pretrained('/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-Instruct1')
         self.model1 = LlamaForCausalLM.from_pretrained(
             '/path/to/your/model1',
             device_map='auto',
