@@ -1,5 +1,6 @@
 import requests
 import torch
+import os
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 class ChatAgent:
