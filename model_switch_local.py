@@ -1,6 +1,6 @@
 import requests
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import LlamaTokenizer, LlamaForCausalLM
 
 class ChatAgent:
     def __init__(self):
@@ -10,7 +10,7 @@ class ChatAgent:
         # 加载 model2
         self.tokenizer_model2 = LlamaTokenizer.from_pretrained('/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-Instruct')
         self.model2 = LlamaForCausalLM.from_pretrained(
-            '/root/lqs/llama-8B-instruct',
+            '/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-Instruct',
             device_map='auto',
             torch_dtype=torch.float16
         )
@@ -19,7 +19,7 @@ class ChatAgent:
         # 加载 model1
         self.tokenizer_model1 = LlamaTokenizer.from_pretrained('/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-Instruct1')
         self.model1 = LlamaForCausalLM.from_pretrained(
-            '/path/to/your/model1',
+            '/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-Instruct1',
             device_map='auto',
             torch_dtype=torch.float16
         )
