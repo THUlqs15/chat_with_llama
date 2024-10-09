@@ -9,7 +9,7 @@ app = FastAPI()
 # 加载模型和tokenizer
 MODEL_PATH = "/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-Instruct"
 tokenizer = PreTrainedTokenizerFast.from_pretrained(MODEL_PATH, legacy=False)
-model = LlamaForCausalLM.from_pretrained(MODEL_PATH).to('cuda')  # 将模型加载到GPU
+model = LlamaForCausalLM.from_pretrained(MODEL_PATH)  # 将模型加载到GPU
 model.eval()
 
 class RequestData(BaseModel):
@@ -19,7 +19,7 @@ class RequestData(BaseModel):
 def generate_response(history, prompt):
     # 将历史记录和当前的提示拼接
     input_text = "\n".join(history) + "\nUser: " + prompt + "\nAssistant:"
-    inputs = tokenizer(input_text, return_tensors="pt").to('cuda')  # 将输入加载到GPU
+    inputs = tokenizer(input_text, return_tensors="pt")  # 将输入加载到GPU
     with torch.no_grad():
         outputs = model.generate(
             **inputs,
