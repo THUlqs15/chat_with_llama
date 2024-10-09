@@ -7,7 +7,7 @@ from transformers import LlamaForCausalLM, PreTrainedTokenizerFast
 app = FastAPI()
 
 # 加载模型和tokenizer
-MODEL_PATH = "/home/butter/lqs/llama3_models/models/Meta-Llama-3-8B-Instruct"
+MODEL_PATH = "/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-Instruct"
 tokenizer = PreTrainedTokenizerFast.from_pretrained(MODEL_PATH, legacy=False)
 model = LlamaForCausalLM.from_pretrained(MODEL_PATH).to('cuda')  # 将模型加载到GPU
 model.eval()
