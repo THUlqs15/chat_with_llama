@@ -2,8 +2,8 @@ import os
 import requests
 
 # API endpoints for model1 and model2
-model1_url = "http://localhost:5001/predict"  # Assuming server1.py is running on port 5001
-model2_url = "http://localhost:5002/predict"  # Assuming server2.py is running on port 5002
+model1_url = "http://localhost:8001/predict"  # Assuming server1.py is running on port 5001
+model2_url = "http://localhost:8000/predict"  # Assuming server2.py is running on port 5002
 
 def call_model(api_url, prompt, history):
     # Combine history and prompt into a single input
