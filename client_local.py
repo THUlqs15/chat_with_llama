@@ -1,5 +1,5 @@
 import os
-from transformers import LlamaForCausalLM, LlamaTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
 # Load models
@@ -7,11 +7,11 @@ model1_path = "/root/lqs/LLaMA-Factory-main/llama3_models/merged_models"
 model2_path = "/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-Instruct"
 
 # Load tokenizer (assuming the tokenizer is the same for both models)
-tokenizer = LlamaTokenizer.from_pretrained(model2_path)
+tokenizer = AutoTokenizer.from_pretrained(model2_path)
 
 # Load models
-model1 = LlamaForCausalLM.from_pretrained(model1_path)
-model2 = LlamaForCausalLM.from_pretrained(model2_path)
+model1 = AutoModelForCausalLM.from_pretrained(model1_path)
+model2 = AutoModelForCausalLM.from_pretrained(model2_path)
 
 # Set device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
