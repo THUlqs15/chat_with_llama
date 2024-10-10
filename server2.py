@@ -23,7 +23,7 @@ def generate_response(history, prompt):
     with torch.no_grad():
         outputs = model.generate(
             **inputs,
-            max_length=512,
+            max_length=2048,
             num_return_sequences=1,
             pad_token_id=tokenizer.eos_token_id
         )
