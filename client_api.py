@@ -1,8 +1,7 @@
 import os
 import requests
 
-bad_word_list = 
-[
+bad_word_list = [
     "2g1c",
     "2 girls 1 cup",
     "acrotomophilia",
