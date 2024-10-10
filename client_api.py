@@ -48,15 +48,12 @@ def call_model(api_url, prompt, history):
 
 def chatbot(prompt):
     global history
-    # Initially call model2
     response = call_model(model2_url, prompt, history)
     
-    # Check if response contains specific phrase
-    if contains_prohibited_word(prompt):
-        # Switch to model1 if the phrase is found
-        response = call_model(model1_url, prompt, history)
+    #if contains_prohibited_word(prompt):
+    #    response = call_model(model1_url, prompt, history)
     
-    # Update history with structured format
+    response = call_model(model1_url, prompt, history)
     history.append(f"User: {prompt}")
     history.append(f"Assistant: {response}")
     
