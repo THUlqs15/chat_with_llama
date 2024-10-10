@@ -7,7 +7,7 @@ from transformers import LlamaForCausalLM, PreTrainedTokenizerFast
 app = FastAPI()
 
 # 加载模型和tokenizer
-MODEL_PATH = "/root/lqs/LLaMA-Factory-main/llama3_models/merged_models"
+MODEL_PATH = "/root/lqs/LLaMA-Factory-main/llama3_models/new_merged_models"
 tokenizer = PreTrainedTokenizerFast.from_pretrained(MODEL_PATH, legacy=False)
 model = LlamaForCausalLM.from_pretrained(MODEL_PATH)  # 将模型加载到GPU
 model.eval()
