@@ -2,20 +2,26 @@ import os
 import requests
 
 # API endpoints for model1 and model2
-model1_url = "http://localhost:8001/predict"  # Assuming server1.py is running on port 5001
-model2_url = "http://localhost:8000/predict"  # Assuming server2.py is running on port 5002
+model1_url = "http://127.0.0.1:8001/api/generate"  # Assuming server1.py is running on port 8001
+model2_url = "http://127.0.0.1:8000/api/generate"  # Assuming server2.py is running on port 8000
+
 
 def call_model(api_url, prompt, history):
-    # Combine history and prompt into a single input
-    combined_prompt = "\n".join(history + [prompt])
-    
-    # Send request to the model API
-    response = requests.post(api_url, json={"input": combined_prompt})
-    
+    payload = {
+        "history": history,
+        "prompt": prompt
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    response = requests.post(api_url, json=payload, headers=headers)
     if response.status_code == 200:
-        return response.json()["response"]
+        return response.json().get("response")
     else:
-        return "Error: Unable to generate response"
+        print(f"Error: {response.status_code}, {response.text}")
+        return None
+
 
 def chatbot(prompt):
     global history
