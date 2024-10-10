@@ -3,13 +3,22 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import torch
 from transformers import LlamaForCausalLM, PreTrainedTokenizerFast
+from transformers import AutoTokenizer, AutoModelForCausalLM
+from peft import PeftModel
 
 app = FastAPI()
 
 # 加载模型和tokenizer
-MODEL_PATH = "/root/lqs/LLaMA-Factory-main/llama3_models/new_merged_models"
-tokenizer = PreTrainedTokenizerFast.from_pretrained(MODEL_PATH, legacy=False)
-model = LlamaForCausalLM.from_pretrained(MODEL_PATH)  # 将模型加载到GPU
+#MODEL_PATH = "/root/lqs/LLaMA-Factory-main/llama3_models/new_merged_models"
+#tokenizer = PreTrainedTokenizerFast.from_pretrained(MODEL_PATH, legacy=False)
+#model = LlamaForCausalLM.from_pretrained(MODEL_PATH)  # 将模型加载到GPU
+#model.eval()
+
+model_name_or_path = "/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-Instruct"
+adapter_name_or_path = "/root/lqs/LLaMA-Factory-main/llama3_models/9_11"
+tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
+base_model = AutoModelForCausalLM.from_pretrained(model_name_or_path,torch_dtype=torch.float16,device_map="auto")
+model = PeftModel.from_pretrained(base_model, adapter_name_or_path)
 model.eval()
 
 class RequestData(BaseModel):
