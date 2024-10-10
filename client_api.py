@@ -34,14 +34,18 @@ def chatbot(prompt):
         response = call_model(model1_url, prompt, history)
     
     # Update history with structured format
-    history.append(f"You: {prompt}")
-    history.append(f"Chatbot: {response}")
+    history.append(f"User: {prompt}")
+    history.append(f"Assistant: {response}")
     
     return response
+
+
 
 if __name__ == "__main__":
     history = []
     while True:
-        prompt = input("You: ")
+        prompt = input("User: ")
+        if prompt.lower() in ["exit", "quit"]:
+            break
         response = chatbot(prompt)
-        print(f"Chatbot: {response}")
+        print(f"Assistant: {response}")
