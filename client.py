@@ -24,8 +24,13 @@ def get_response(history, prompt):
         return None
 
 if __name__ == "__main__":
-    history = ["User: Hello!", "Assistant: Hi there! How can I assist you today?"]
-    prompt = "Can you tell me a joke?"
-    response = get_response(history, prompt)
-    if response:
-        print("Assistant:", response)
+    history = []
+    while True:
+        prompt = input("You: ")
+        if prompt.lower() in ["exit", "quit"]:
+            break
+        response = get_response(history, prompt)
+        if response:
+            print("Assistant:", response)
+            history.append(f"User: {prompt}")
+            history.append(f"Assistant: {response}")
