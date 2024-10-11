@@ -9,7 +9,7 @@ app = FastAPI()
 # 加载模型和tokenizer
 MODEL_PATH = "/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-Instruct"
 tokenizer = PreTrainedTokenizerFast.from_pretrained(MODEL_PATH, legacy=False)
-model = LlamaForCausalLM.from_pretrained(MODEL_PATH)
+model = LlamaForCausalLM.from_pretrained(MODEL_PATH,torch_dtype=torch.float16)
 
 # Move the model to GPU if available
 if torch.cuda.is_available():
