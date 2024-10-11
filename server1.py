@@ -17,8 +17,14 @@ app = FastAPI()
 model_name_or_path = "/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-Instruct"
 adapter_name_or_path = "/root/lqs/LLaMA-Factory-main/llama3_models/9_11"
 tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
-base_model = AutoModelForCausalLM.from_pretrained(model_name_or_path,torch_dtype=torch.float16,device_map="auto")
+#base_model = AutoModelForCausalLM.from_pretrained(model_name_or_path,torch_dtype=torch.float16,device_map="auto")
+base_model = AutoModelForCausalLM.from_pretrained(model_name_or_path,torch_dtype=torch.float16)
 model = PeftModel.from_pretrained(base_model, adapter_name_or_path)
+
+device = torch.device("cuda")
+model = model.to(device)
+torch.cuda.set_per_process_memory_fraction(0.95)
+
 model.eval()
 
 class RequestData(BaseModel):
@@ -28,11 +34,11 @@ class RequestData(BaseModel):
 def generate_response(history, prompt):
     # 将历史记录和当前的提示拼接
     input_text = "\n".join(history) + "\nUser: " + prompt + "\nAssistant:"
-    inputs = tokenizer(input_text, return_tensors="pt")  # 将输入加载到GPU
+    inputs = tokenizer(input_text, return_tensors="pt").to(device)  # 将输入加载到GPU
     with torch.no_grad():
         outputs = model.generate(
             **inputs,
-            max_length=512,
+            max_length=2048,
             num_return_sequences=1,
             pad_token_id=tokenizer.eos_token_id
         )
