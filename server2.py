@@ -15,6 +15,7 @@ model = LlamaForCausalLM.from_pretrained(MODEL_PATH,torch_dtype=torch.float16)
 if torch.cuda.is_available():
     device = torch.device("cuda")
     model = model.to(device)
+    torch.cuda.set_per_process_memory_fraction(0.95)
 else:
     device = torch.device("cpu")
 
