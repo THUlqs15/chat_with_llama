@@ -11,7 +11,7 @@ MODEL_PATH = "/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-
 tokenizer = PreTrainedTokenizerFast.from_pretrained(MODEL_PATH, legacy=False)
 model = LlamaForCausalLM.from_pretrained(MODEL_PATH,torch_dtype=torch.float16)
 
-# Move the model to GPU if available
+
 #if torch.cuda.is_available():
 device = torch.device("cuda")
 model = model.to(device)
@@ -36,7 +36,7 @@ def generate_response(history, prompt):
             pad_token_id=tokenizer.eos_token_id
         )
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    # 返回最后一段作为助手的回答
+    # 返回最后一段作为回答
     return response.split("Assistant:")[-1].strip()
 
 @app.post("/api/generate")
