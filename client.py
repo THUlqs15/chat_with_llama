@@ -26,7 +26,7 @@ def get_response(history, prompt):
 if __name__ == "__main__":
     history = []
     while True:
-        prompt = input("You: ")
+        prompt = input("User: ")
         if prompt.lower() in ["exit", "quit"]:
             break
         response = get_response(history, prompt)
