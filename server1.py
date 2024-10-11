@@ -24,7 +24,7 @@ model = PeftModel.from_pretrained(base_model, adapter_name_or_path)
 device = torch.device("cuda")
 model = model.to(device)
 torch.cuda.set_per_process_memory_fraction(0.95)
-torch.cuda.set_max_split_size_mb(128)
+#torch.cuda.set_max_split_size_mb(128)
 
 model.eval()
 
