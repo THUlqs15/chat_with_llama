@@ -35,9 +35,6 @@ def generate_response(history, prompt):
     # 将历史记录和当前的提示拼接
     input_text = "\n".join(history) + "\nUser: " + prompt + "\nAssistant:"
     inputs = tokenizer(input_text, return_tensors="pt").to(device)  # 将输入加载到GPU
-    max_input_length = 2048
-    if input_ids.size(1) > max_input_length:
-        input_ids = input_ids[:, -max_input_length:]
     with torch.no_grad():
         outputs = model.generate(
             **inputs,
