@@ -11,7 +11,7 @@ app = FastAPI()
 # 加载模型和tokenizer
 #MODEL_PATH = "/root/lqs/LLaMA-Factory-main/llama3_models/new_merged_models"
 #tokenizer = PreTrainedTokenizerFast.from_pretrained(MODEL_PATH, legacy=False)
-#model = LlamaForCausalLM.from_pretrained(MODEL_PATH)  # 将模型加载到GPU
+#model = LlamaForCausalLM.from_pretrained(MODEL_PATH)  
 #model.eval()
 
 model_name_or_path = "/root/lqs/LLaMA-Factory-main/llama3_models/models/Meta-Llama-3-8B-Instruct"
