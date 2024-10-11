@@ -7,7 +7,7 @@ class RequestData:
         self.prompt = prompt
 
 def get_response(history, prompt):
-    url = "http://127.0.0.1:8000/api/generate"
+    url = "http://127.0.0.1:8001/api/generate"
     payload = {
         "history": history,
         "prompt": prompt
