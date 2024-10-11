@@ -27,6 +27,8 @@ torch.cuda.set_per_process_memory_fraction(0.95)
 
 model.eval()
 
+# max_new_tokens=150,
+
 class RequestData(BaseModel):
     history: list[str]
     prompt: str
@@ -38,7 +40,7 @@ def generate_response(history, prompt):
     with torch.no_grad():
         outputs = model.generate(
             **inputs,
-            max_new_tokens=150,
+            max_length=2048,
             num_return_sequences=1,
             pad_token_id=tokenizer.eos_token_id
         )
