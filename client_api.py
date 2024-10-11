@@ -51,6 +51,7 @@ def chatbot(prompt):
     response = call_model(model2_url, prompt, history)
     
     if contains_prohibited_word(prompt):
+        print("nima")
         response = call_model(model1_url, prompt, history)
     
     history.append(f"User: {prompt}")
