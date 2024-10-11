@@ -12,12 +12,11 @@ tokenizer = PreTrainedTokenizerFast.from_pretrained(MODEL_PATH, legacy=False)
 model = LlamaForCausalLM.from_pretrained(MODEL_PATH,torch_dtype=torch.float16)
 
 # Move the model to GPU if available
-if torch.cuda.is_available():
-    device = torch.device("cuda")
-    model = model.to(device)
-    torch.cuda.set_per_process_memory_fraction(0.95)
-else:
-    device = torch.device("cpu")
+#if torch.cuda.is_available():
+device = torch.device("cuda")
+model = model.to(device)
+torch.cuda.set_per_process_memory_fraction(0.95)
+#else:device = torch.device("cpu")
 
 model.eval()
 
@@ -28,7 +27,7 @@ class RequestData(BaseModel):
 def generate_response(history, prompt):
     # 将历史记录和当前的提示拼接
     input_text = "\n".join(history) + "\nUser: " + prompt + "\nAssistant:"
-    inputs = tokenizer(input_text, return_tensors="pt")  # 将输入加载到GPU
+    inputs = tokenizer(input_text, return_tensors="pt").to(device)  # 将输入加载到GPU
     with torch.no_grad():
         outputs = model.generate(
             **inputs,
