@@ -5,6 +5,10 @@ import torch
 from transformers import LlamaForCausalLM, PreTrainedTokenizerFast
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from peft import PeftModel
+import datetime
+import sqlalchemy
+from sqlalchemy import create_engine, text
+import os
 
 app = FastAPI()
 
@@ -29,8 +33,16 @@ torch.cuda.set_per_process_memory_fraction(0.95)
 
 model.eval()
 
-# 
-# max_length=2048,
+# max_length=2048
+
+# Google Cloud SQL配置
+DB_USER = os.getenv("DB_USER", "your_db_user")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "your_db_password")
+DB_NAME = os.getenv("DB_NAME", "your_db_name")
+DB_CONNECTION_NAME = os.getenv("DB_CONNECTION_NAME", "your_project_id:your_region:your_instance_id")
+
+database_url = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@/{DB_NAME}?unix_socket=/cloudsql/{DB_CONNECTION_NAME}"
+engine = create_engine(database_url)
 
 
 class RequestData(BaseModel):
@@ -92,6 +104,14 @@ def query_knowledge_database(prompt):
         if key.lower() in prompt.lower():
             related_info.append(value)
     return "\n".join(related_info)
+
+def query_knowledge_database_SQL(prompt):
+    # 查询Google Cloud SQL中的知识数据库
+    with engine.connect() as connection:
+        result = connection.execute(text("SELECT value FROM knowledge_database WHERE LOWER(key) LIKE :prompt"), {"prompt": f"%{prompt.lower()}%"})
+        related_info = [row["value"] for row in result]
+    return "\n".join(related_info)
+    
 
 def generate_response(history, prompt, instruction):
     # 获取日程表信息并更新instruction
