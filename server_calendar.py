@@ -1,4 +1,4 @@
-# 服务端代码 (server.py) - 基于FastAPI 150
+# 服务端代码 (server.py) - 基于FastAPI
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import torch
