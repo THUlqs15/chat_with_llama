@@ -32,6 +32,8 @@ terminators = [
     tokenizer.convert_tokens_to_ids("<|eot_id|>")
 ]
 
+tokenizer.pad_token_id = tokenizer.eos_token_id
+
 SYS_PROMPT = """You are an assistant for answering questions."""
 
 def search(query: str, k: int = 3 ):
@@ -68,9 +70,11 @@ def talk(prompt,history):
       add_generation_prompt=True,
       return_tensors="pt"
     ).to(model.device)
+    attention_mask = input_ids.ne(tokenizer.pad_token_id).long()
     outputs = model.generate(
       input_ids,
       max_new_tokens=1024,
+      attention_mask=attention_mask,
       eos_token_id=terminators,
       do_sample=True,
       temperature=0.6,
