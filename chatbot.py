@@ -9,6 +9,8 @@ from sentence_transformers import SentenceTransformer
 from datasets import load_dataset
 from peft import PeftModel
 import time
+import warnings
+warnings.filterwarnings("ignore")
 
 
 model_id = "/workspace/LLaMA-Factory/models"
