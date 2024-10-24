@@ -34,7 +34,17 @@ terminators = [
 
 #tokenizer.pad_token_id = tokenizer.eos_token_id
 
-SYS_PROMPT = """You are an assistant for answering questions."""
+schedule = {
+    "2024-10-17": [
+        {"time": "10:00", "event": "Team meeting"},
+        {"time": "15:00", "event": "Doctor's appointment"}
+    ],
+    "2024-10-18": [
+        {"time": "09:00", "event": "Project deadline"}
+    ]
+}
+
+SYS_PROMPT = """You are an assistant for answering questions. You also have access to the user's schedule. Please respond appropriately considering the user's schedule: {schedule}.""".format(schedule=schedule)
 
 def search(query: str, k: int = 3 ):
     """a function that embeds a new query and returns the most probable results"""
