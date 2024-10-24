@@ -14,6 +14,7 @@ import time
 model_id = "/workspace/LLaMA-Factory/models"
 adapter_name_or_path = "/workspace/LLaMA-Factory/saves"
 
+
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(
     model_id,
