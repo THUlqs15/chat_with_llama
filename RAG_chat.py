@@ -11,6 +11,7 @@ import time
 
 ST = SentenceTransformer("mixedbread-ai/mxbai-embed-large-v1")
 
+
 dataset = load_dataset("not-lain/wikipedia",revision = "embedded")
 
 data = dataset["train"]
