@@ -35,8 +35,6 @@ terminators = [
 
 SYS_PROMPT = """You are an assistant for answering questions."""
 
-
-
 def search(query: str, k: int = 3 ):
     """a function that embeds a new query and returns the most probable results"""
     embedded_query = ST.encode(query) # embed new query
