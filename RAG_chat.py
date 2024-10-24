@@ -97,7 +97,7 @@ def talk(prompt,history):
         print(outputs)
         generated_text = "".join(outputs)
         history.append({"role": "assistant", "content": generated_text})
-        yield generated_text
+        return generated_text
 
 history = []
 while True:
