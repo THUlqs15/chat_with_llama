@@ -69,7 +69,8 @@ def talk(prompt,history):
         history = []
     k = 1 # number of retrieved documents
     scores , retrieved_documents = search(prompt, k)
-    formatted_prompt = format_prompt(prompt,retrieved_documents,k)
+    #formatted_prompt = format_prompt(prompt,retrieved_documents,k)
+    formatted_prompt = prompt
     formatted_prompt = formatted_prompt[:2000] # to avoid GPU OOM
     history.append({"role": "user", "content": formatted_prompt})
     messages = [{"role": "system", "content": SYS_PROMPT}] + history
