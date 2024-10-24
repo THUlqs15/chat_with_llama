@@ -7,6 +7,7 @@ import torch
 from threading import Thread
 from sentence_transformers import SentenceTransformer
 from datasets import load_dataset
+from peft import PeftModel
 import time
 
 ST = SentenceTransformer("mixedbread-ai/mxbai-embed-large-v1")
@@ -25,13 +26,13 @@ model = AutoModelForCausalLM.from_pretrained(
     torch_dtype=torch.bfloat16,
     device_map="auto"
 )
-#model = PeftModel.from_pretrained(model, adapter_name_or_path)
+model = PeftModel.from_pretrained(model, adapter_name_or_path)
 terminators = [
     tokenizer.eos_token_id,
     tokenizer.convert_tokens_to_ids("<|eot_id|>")
 ]
 
-tokenizer.pad_token_id = tokenizer.eos_token_id
+#tokenizer.pad_token_id = tokenizer.eos_token_id
 
 SYS_PROMPT = """You are an assistant for answering questions."""
 
@@ -73,7 +74,7 @@ def talk(prompt,history):
     outputs = model.generate(
       input_ids,
       max_new_tokens=1024,
-      attention_mask=attention_mask,
+      #attention_mask=attention_mask,
       eos_token_id=terminators,
       do_sample=True,
       temperature=0.6,
