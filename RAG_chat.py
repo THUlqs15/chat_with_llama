@@ -75,28 +75,9 @@ def talk(prompt,history):
       temperature=0.6,
       top_p=0.9,
     )
-    streamer = TextIteratorStreamer(
-            tokenizer, timeout=10.0, skip_prompt=True, skip_special_tokens=True
-        )
-    generate_kwargs = dict(
-        input_ids= input_ids,
-        streamer=streamer,
-        max_new_tokens=1024,
-        do_sample=True,
-        top_p=0.95,
-        temperature=0.75,
-        eos_token_id=terminators,
-    )
-    t = Thread(target=model.generate, kwargs=generate_kwargs)
-    t.start()
-
-    outputs = []
-    for text in streamer:
-        outputs.append(text)
-        print(outputs)
-        generated_text = "".join(outputs)
-        history.append({"role": "assistant", "content": generated_text})
-        return generated_text
+    response = tokenizer.decode(outputs[0][input_ids.shape[-1]:], skip_special_tokens=True)
+    history.append({"role": "assistant", "content": response})
+    return response
 
 history = []
 while True:
