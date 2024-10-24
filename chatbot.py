@@ -28,7 +28,7 @@ terminators = [
 ]
 
 
-SYS_PROMPT = """You are 2B."""
+SYS_PROMPT = """"""
 
 
 @spaces.GPU(duration=150)
