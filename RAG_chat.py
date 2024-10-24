@@ -18,7 +18,7 @@ data = dataset["train"]
 data = data.add_faiss_index("embeddings") # column name that has the embeddings of the dataset
 
 model_id = "/workspace/LLaMA-Factory/models"
-adapter_name_or_path = "/workspace/LLaMA-Factory/saves_lora/5"
+adapter_name_or_path = "/workspace/LLaMA-Factory/saves_lora/3"
 
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(
