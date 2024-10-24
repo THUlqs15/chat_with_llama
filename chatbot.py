@@ -12,7 +12,6 @@ import time
 import warnings
 warnings.filterwarnings("ignore")
 
-
 model_id = "/workspace/LLaMA-Factory/models"
 adapter_name_or_path = "/workspace/LLaMA-Factory/saves"
 
