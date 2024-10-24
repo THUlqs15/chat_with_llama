@@ -54,11 +54,15 @@ def format_prompt(prompt,retrieved_documents,k):
 
 @spaces.GPU(duration=150)
 def talk(prompt,history):
+    if history is None:
+        history = []
     k = 1 # number of retrieved documents
     scores , retrieved_documents = search(prompt, k)
     formatted_prompt = format_prompt(prompt,retrieved_documents,k)
     formatted_prompt = formatted_prompt[:2000] # to avoid GPU OOM
-    messages = [{"role":"system","content":SYS_PROMPT},{"role":"user","content":formatted_prompt}]
+    history.append({"role": "user", "content": formatted_prompt})
+    messages = [{"role": "system", "content": SYS_PROMPT}] + history
+    # messages = [{"role":"system","content":SYS_PROMPT},{"role":"user","content":formatted_prompt}]
     # tell the model to generate
     input_ids = tokenizer.apply_chat_template(
       messages,
@@ -92,36 +96,15 @@ def talk(prompt,history):
     for text in streamer:
         outputs.append(text)
         print(outputs)
-        yield "".join(outputs)
+        generated_text = "".join(outputs)
+        history.append({"role": "assistant", "content": generated_text})
+        yield generated_text
 
-
-TITLE = "# RAG"
-
-DESCRIPTION = """
-A rag pipeline with a chatbot feature
-Resources used to build this project :
-* embedding model : https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1
-* dataset : https://huggingface.co/datasets/not-lain/wikipedia
-* faiss docs : https://huggingface.co/docs/datasets/v2.18.0/en/package_reference/main_classes#datasets.Dataset.add_faiss_index 
-* chatbot : https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct
-* Full documentation : https://huggingface.co/blog/not-lain/rag-chatbot-using-llama3 
-"""
-
-
-demo = gr.ChatInterface(
-    fn=talk,
-    chatbot=gr.Chatbot(
-        show_label=True,
-        show_share_button=True,
-        show_copy_button=True,
-        likeable=True,
-        layout="bubble",
-        bubble_full_width=False,
-    ),
-    theme="Soft",
-    examples=[["what's anarchy ? "]],
-    title=TITLE,
-    description=DESCRIPTION,
-    
-)
-demo.launch(debug=True)
+history = []
+while True:
+    user_input = input("User: ")
+    if user_input.lower() in ["exit", "quit"]:
+        print("Exiting chat. Goodbye!")
+        break
+    response = talk(user_input, history)
+    print(f"Assistant: {response}")
