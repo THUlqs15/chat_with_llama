@@ -10,7 +10,7 @@ from sentence_transformers import SentenceTransformer
 from datasets import load_dataset
 import time
 
-token = os.environ["HF_TOKEN"]
+
 ST = SentenceTransformer("mixedbread-ai/mxbai-embed-large-v1")
 
 dataset = load_dataset("not-lain/wikipedia",revision = "embedded")
@@ -30,12 +30,11 @@ bnb_config = BitsAndBytesConfig(
     load_in_4bit=True, bnb_4bit_use_double_quant=True, bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.bfloat16
 )
 
-tokenizer = AutoTokenizer.from_pretrained(model_id,token=token)
+tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(
     model_id,
     torch_dtype=torch.bfloat16,
-    device_map="auto",
-    token=token
+    device_map="auto"
 )
 #model = PeftModel.from_pretrained(model, adapter_name_or_path)
 terminators = [
