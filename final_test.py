@@ -35,14 +35,6 @@ model.eval()
 
 # max_length=2048
 
-# Google Cloud SQL配置
-DB_USER = os.getenv("DB_USER", "your_db_user")
-DB_PASSWORD = os.getenv("DB_PASSWORD", "your_db_password")
-DB_NAME = os.getenv("DB_NAME", "your_db_name")
-DB_CONNECTION_NAME = os.getenv("DB_CONNECTION_NAME", "your_project_id:your_region:your_instance_id")
-
-database_url = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@/{DB_NAME}?unix_socket=/cloudsql/{DB_CONNECTION_NAME}"
-engine = create_engine(database_url)
 
 
 class RequestData(BaseModel):
