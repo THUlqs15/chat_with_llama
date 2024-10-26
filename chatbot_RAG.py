@@ -1166,9 +1166,9 @@ def format_prompt(prompt, related_content):
 def talk(prompt,history):
     if history is None:
         history = []
-    related_content = search_related_content_fuzzy(profile_data, prompt)
-    formatted_prompt = format_prompt(prompt,related_content)
-    history.append({"role": "user", "content": formatted_prompt})
+    #related_content = search_related_content_fuzzy(profile_data, prompt)
+    #formatted_prompt = format_prompt(prompt,related_content)
+    history.append({"role": "user", "content": prompt})
     messages = [{"role": "system", "content": SYS_PROMPT}] + history
     input_ids = tokenizer.apply_chat_template(
       messages,
