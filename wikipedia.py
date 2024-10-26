@@ -1,5 +1,6 @@
 from datasets import load_dataset
 from sentence_transformers import SentenceTransformer
+import os
 ST = SentenceTransformer("mixedbread-ai/mxbai-embed-large-v1")
 
 dataset = load_dataset("not-lain/wikipedia",revision = "embedded")
