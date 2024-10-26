@@ -77,11 +77,21 @@ def search_related_content_fuzzy(data, prompt, threshold=60):
     # 调用递归函数并返回结果
     return recursive_search(data, prompt)
 
+
+
 #scores , result = search("Jinping Xi", 3) 
 
 prompt = "I like your chest." 
 related_content = search_related_content_fuzzy(profile_data, prompt)
 print(related_content)
+
+
+def prepare_llama_input(prompt, related_content):
+    # 将 prompt 和相关内容整合为一个输入字符串
+    input_text = f"Prompt: {prompt}\n\nRelated Content:\n"
+    for item in related_content:
+        input_text += f"{item}\n"
+    return input_text
 
 profile_data_list = {k: [v] for k, v in profile_data.items()}
 profile_dataset = Dataset.from_dict(profile_data_list)
