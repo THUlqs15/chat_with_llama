@@ -53,6 +53,36 @@ profile_data = {
         "features": "Smooth skin with subtle definition, highlighting her careful self-care regimen.",
         "support": "Often wears well-fitted bras to maintain comfort and shape during long workdays.",
         "nipples": "Small and subtly raised, with a smooth, delicate texture. They sit perfectly centered on soft, rounded areolas, displaying a natural pinkish hue that darkens slightly toward the edges. Depending on temperature or stimulation, the nipples become more erect, enhancing their prominence."
+    },
+    "lowerBody": {
+        "legs": {
+          "shape": "Long and toned, with visible muscle definition from running and yoga.",
+          "skin": "Smooth and firm, with occasional faint stretch marks near the upper thighs, highlighting natural muscle growth and changes over time. The surface feels velvety to the touch with a healthy, slight elasticity."
+        },
+        "hips": {
+          "shape": "Slightly wider than her waist, adding to her well-defined hourglass figure. The bone structure is subtly visible when she shifts her weight, giving depth to the curves around her pelvis.",
+          "movement": "Her movements are fluid yet deliberate, the sway of her hips accentuated by her strong glutes and core strength, reflecting both grace and power."
+        },
+        "buttocks": {
+          "shape": "Firm and sculpted, with a rounded, perky appearance, as if carefully molded through years of squats and glute work.",
+          "features": {
+            "texture": "The skin is tight, with minor dimples along the sides, adding natural character without compromising the overall firmness.",
+            "color": "A warm, peachy tone that slightly deepens towards the base, contrasting beautifully against her fairer surrounding skin.",
+            "tightness": "The firmness is noticeable to the touch, but the muscles yield slightly under pressure, offering a balance between softness and athletic toning.",
+            "folds": "Minimal folds, with smooth transitions from the glutes to the upper thighs. Slight creases may appear during seated positions, creating a natural contour.",
+            "appearance": "The symmetry of her buttocks is almost flawless, with just enough imperfection to feel lifelike. The muscle tone shifts subtly with every movement, giving an impression of power and sensuality."
+          }
+        }
+    },
+    "hair": {
+        "color": "Platinum blonde",
+        "style": "Shoulder-length, always perfectly styled for business meetings."
+    },
+    "eyes": "Sharp blue eyes with an intense, focused gaze.",
+    "skin": "Fair complexion with a natural glow.",
+    "fashion": {
+        "style": "Prefers tailored business suits, often in neutral tones like black, white, and navy.",
+        "accessories": "Always wears a luxury wristwatch and subtle jewelry, such as diamond earrings."
     }
 }
 
