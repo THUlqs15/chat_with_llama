@@ -29,8 +29,6 @@ terminators = [
 
 from collections.abc import Mapping
 from fuzzywuzzy import fuzz
-
-
 profile_data = {
     "character": "Margaret",
     "name": "Margaret",
