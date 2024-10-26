@@ -53,7 +53,7 @@ def search(query: str, k: int = 3 ):
 
 profile_data_list = [profile_data]
 profile_dataset = Dataset.from_dict(profile_data_list)
-
+print("ha")
 print(profile_dataset[0])
 
 
