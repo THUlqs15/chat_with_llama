@@ -38,9 +38,8 @@ def search(query: str, k: int = 3 ):
 
 #scores , result = search("Jinping Xi", 3) 
 
-profile_data_list = [profile_data]
+profile_data_list = {k: [v] for k, v in profile_data.items()}
 profile_dataset = Dataset.from_dict(profile_data_list)
-print("ha")
 print(profile_dataset[0])
 
 
