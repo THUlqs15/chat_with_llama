@@ -79,7 +79,7 @@ def search_related_content_fuzzy(data, prompt, threshold=60):
 
 #scores , result = search("Jinping Xi", 3) 
 
-prompt = "I like your chest."  # 示例提示词
+prompt = "I like your chest." 
 related_content = search_related_content_fuzzy(profile_data, prompt)
 print(related_content)
 
