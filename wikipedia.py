@@ -50,7 +50,11 @@ def search(query: str, k: int = 3 ):
 
 
 #scores , result = search("Jinping Xi", 3) 
-print(profile_data[0])
+
+profile_data_list = [profile_data]
+profile_dataset = Dataset.from_dict(profile_data_list)
+
+print(profile_dataset[0])
 
 
 
