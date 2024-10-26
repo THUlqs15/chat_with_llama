@@ -85,8 +85,7 @@ profile_data = {
     }
 }
 
-profile_data =
-{
+profile_data = {
     "character": "Margaret",
     "name": "Margaret",
     "age": 32,
