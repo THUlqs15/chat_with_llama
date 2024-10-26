@@ -23,6 +23,13 @@ profile_data = {
             "hips": "38 inches",
             "cupSize": "C"
         }
+    },
+    "chest": {
+        "shape": "Full and rounded, with a natural firmness due to her fitness routine.",
+        "size": "Moderate, proportionate to her athletic build, providing both elegance and confidence.",
+        "features": "Smooth skin with subtle definition, highlighting her careful self-care regimen.",
+        "support": "Often wears well-fitted bras to maintain comfort and shape during long workdays.",
+        "nipples": "Small and subtly raised, with a smooth, delicate texture. They sit perfectly centered on soft, rounded areolas, displaying a natural pinkish hue that darkens slightly toward the edges. Depending on temperature or stimulation, the nipples become more erect, enhancing their prominence."
     }
 }
 
