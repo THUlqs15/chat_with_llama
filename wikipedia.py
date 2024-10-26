@@ -7,6 +7,8 @@ dataset = load_dataset("not-lain/wikipedia",revision = "embedded")
 
 data = dataset["train"]
 data = data.add_faiss_index("embeddings")
+from collections.abc import Mapping
+from fuzzywuzzy import fuzz
 
 
 profile_data = {
@@ -44,8 +46,6 @@ def search(query: str, k: int = 3 ):
 
 
 
-from collections.abc import Mapping
-from fuzzywuzzy import fuzz
 
 def search_related_content_fuzzy(data, prompt, threshold=60):
     # 递归函数，用于查找与 prompt 模糊匹配的内容
