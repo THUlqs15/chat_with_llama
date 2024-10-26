@@ -68,6 +68,8 @@ schedule = {
 
 SYS_PROMPT = """You are an assistant for answering questions. You also have access to the user's schedule. Please respond appropriately considering the user's schedule: {schedule}.""".format(schedule=schedule)
 
+SYS_PROMPT = """You are an assistant for answering questions."""
+
 
 def search_related_content_fuzzy(data, prompt, threshold=60):
     # 递归函数，用于查找与 prompt 模糊匹配的内容
@@ -126,7 +128,7 @@ def talk(prompt,history):
       max_new_tokens=1024,
       eos_token_id=terminators,
       do_sample=True,
-      temperature=0.6,
+      temperature=0.7,
       top_p=0.9,
     )
     response = tokenizer.decode(outputs[0][input_ids.shape[-1]:], skip_special_tokens=True)
