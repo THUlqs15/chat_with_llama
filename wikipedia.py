@@ -3,7 +3,8 @@ from sentence_transformers import SentenceTransformer
 ST = SentenceTransformer("mixedbread-ai/mxbai-embed-large-v1")
 
 
-dataset.push_to_hub("not-lain/wikipedia", revision="embedded")
+
+dataset = load_dataset("not-lain/wikipedia",revision = "embedded")
 
 data = dataset["train"]
 data = data.add_faiss_index("embeddings")
