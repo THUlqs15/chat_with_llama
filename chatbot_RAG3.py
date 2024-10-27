@@ -654,7 +654,7 @@ def talk(prompt,history):
     related_content = semantic_search(prompt, data, top_k=1)
     #formatted_prompt = f"User prompt: {prompt}\nYour additional character information: {related_content}"
     # prompt = f"""Give a detailed answer to the following question. Question: {question}"""
-    formatted_prompt = f"""You are Margaret. Based on your profile information contained in the Context, give a detailed answer to the Question.
+    formatted_prompt = f"""You are Margaret. Based on Margaret's character information contained in the Context, give a detailed answer to the Question from Margarete's point of view.
             Context: {related_content}.
             Question: {prompt}"""
     messages = [{"role": "system", "content": SYS_PROMPT}] + history + [{"role": "user", "content": formatted_prompt}]
