@@ -655,10 +655,10 @@ def talk(prompt,history):
     if history is None:
         history = []
     related_content = semantic_search(prompt, data, top_k=3)
-    #formatted_prompt = format_prompt(prompt,related_content)
-    formatted_prompt = f"User prompt: {prompt}\nYour additional character information: {related_content}"
-    history.append({"role": "user", "content": formatted_prompt})
-    messages =  history + [{"role": "system", "content": SYS_PROMPT}]
+    #formatted_prompt = f"User prompt: {prompt}\nYour additional character information: {related_content}"
+    history.append({"role": "user", "content": prompt})
+    history.append({"role": "system", "content": f"Use the following information only to answers the user's questions: {related_content}"})
+    messages = [{"role": "system", "content": SYS_PROMPT}] + history
     seed = random.randint(0,10000)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
