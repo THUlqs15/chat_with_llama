@@ -450,7 +450,6 @@ def semantic_search(query: str, corpus: List[Dict[str, Any]], top_k: int = 1) ->
 def format_prompt(prompt, related_content):
     # 将 prompt 和相关内容整合为一个输入字符串
     PROMPT = f"User prompt: {prompt}\nAssitant's profile information:"
-    response = f"You asked: '{query}'. Here is what I found: "
     for item in related_content:
         PROMPT += f"\n\nTopic: {item['topic']}\nContent: {item['content']}"
     return PROMPT
