@@ -14,7 +14,7 @@ import faiss
 from typing import List, Dict, Any, Union
 
 model_id = "/workspace/LLaMA-Factory/models"
-adapter_name_or_path = "/workspace/LLaMA-Factory/saves_lora/10"
+adapter_name_or_path = "/workspace/LLaMA-Factory/saves_lora/2"
 
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(
