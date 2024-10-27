@@ -16,7 +16,7 @@ from typing import List, Dict, Any, Union
 from sentence_transformers import SentenceTransformer, util
 
 model_id = "/workspace/LLaMA-Factory/models"
-adapter_name_or_path = "/workspace/LLaMA-Factory/saves_lora/2B+Rayna+Nami+Magreata+1.1Base+2"
+adapter_name_or_path = "/workspace/LLaMA-Factory/saves_lora/2B+Rayna+Nami+Magreata"
 
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(
