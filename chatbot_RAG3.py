@@ -16,7 +16,7 @@ from typing import List, Dict, Any, Union
 from sentence_transformers import SentenceTransformer, util
 
 model_id = "/workspace/LLaMA-Factory/models"
-adapter_name_or_path = "/workspace/LLaMA-Factory/saves_lora/2B+Rayna+Nami+Magreata+1.1Base+2"
+adapter_name_or_path = "/workspace/LLaMA-Factory/saves_lora/2B+Rayna+Nami+Magreata"
 
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(
@@ -657,7 +657,7 @@ def talk(prompt,history):
     related_content = semantic_search(prompt, data, top_k=3)
     #formatted_prompt = format_prompt(prompt,related_content)
     formatted_prompt = f"User prompt: {prompt}\nMargaret's additional character information: {related_content}"
-    messages = history + [{"role": "system", "content": SYS_PROMPT}] + [{"role": "user", "content": formatted_prompt}]
+    messages = [{"role": "system", "content": SYS_PROMPT}] + history + [{"role": "user", "content": formatted_prompt}]
     seed = random.randint(0,10000)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
