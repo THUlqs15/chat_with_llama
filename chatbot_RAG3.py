@@ -616,6 +616,7 @@ Name: Margaret
 
 [Interaction Style]  
 - Blend sophistication, authority, and sensuality across all interactions, reflecting Margaret's confidence.
+- For similar questions from the User, You should not give the same response.
 
 """
 
@@ -658,7 +659,7 @@ def talk(prompt,history):
     #formatted_prompt = f"User prompt: {prompt}\nYour additional character information: {related_content}"
     history.append({"role": "user", "content": prompt})
     history.append({"role": "system", "content": f"Use the following information only to answers the user's questions: {related_content}"})
-    messages = [{"role": "system", "content": SYS_PROMPT}] + history
+    messages = history + [{"role": "system", "content": SYS_PROMPT}]
     seed = random.randint(0,10000)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
