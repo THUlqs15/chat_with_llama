@@ -464,7 +464,7 @@ def talk(prompt,history):
     related_content = semantic_search(prompt, data, top_k=3)
     formatted_prompt = format_prompt(prompt,related_content)
     #formatted_prompt = f"User prompt: {prompt}\nAssitant's profile information: {related_content}"
-    history.append({"role": "user", "content": prompt})
+    history.append({"role": "user", "content": formatted_prompt})
     messages = [{"role": "system", "content": SYS_PROMPT}] + history
     seed = random.randint(0,10000)
     torch.manual_seed(seed)
