@@ -13,6 +13,7 @@ import random
 import json
 import faiss
 from typing import List, Dict, Any, Union
+from sentence_transformers import SentenceTransformer, util
 
 model_id = "/workspace/LLaMA-Factory/models"
 adapter_name_or_path = "/workspace/LLaMA-Factory/saves_lora/2B+Rayna+Nami+Magreata+1.1Base+2"
@@ -463,7 +464,7 @@ def talk(prompt,history):
         history = []
     related_content = semantic_search(prompt, data, top_k=3)
     formatted_prompt = format_prompt(prompt,related_content)
-    formatted_prompt = f"User prompt: {prompt}\nAssitant's profile information: {related_content}"
+    #formatted_prompt = f"User prompt: {prompt}\nAssitant's profile information: {related_content}"
     history.append({"role": "user", "content": formatted_prompt})
     messages = [{"role": "system", "content": SYS_PROMPT}] + history
     seed = random.randint(0,10000)
