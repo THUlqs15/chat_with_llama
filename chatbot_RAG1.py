@@ -418,8 +418,6 @@ schedule = {
     ]
 }
 
-profile_string = json.dumps(profile_data, indent=2)
-schedule = json.dumps(schedule, indent=2)
 
 
 #SYS_PROMPT = """You are an assistant for answering questions. You also have access to the user's schedule. Please respond appropriately considering the user's schedule: {schedule}.""".format(schedule=schedule)
