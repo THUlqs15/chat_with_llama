@@ -493,8 +493,7 @@ def talk(prompt,history):
     related_content = semantic_search(prompt, data, top_k=3)
     #formatted_prompt = format_prompt(prompt,related_content)
     formatted_prompt = f"User prompt: {prompt}\nYour additional character information: {related_content}"
-    history.append({"role": "user", "content": formatted_prompt})
-    messages = [{"role": "system", "content": SYS_PROMPT}] + history
+    messages = [{"role": "system", "content": SYS_PROMPT}] + history + [{"role": "user", "content": formatted_prompt}]
     seed = random.randint(0,10000)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
@@ -505,7 +504,7 @@ def talk(prompt,history):
     ).to(model.device)
     outputs = model.generate(
       input_ids,
-      max_new_tokens=1024,
+      max_new_tokens=512,
       eos_token_id=terminators,
       do_sample=True,
       temperature=0.9,
@@ -514,6 +513,7 @@ def talk(prompt,history):
       top_p=0.9,
     )
     response = tokenizer.decode(outputs[0][input_ids.shape[-1]:], skip_special_tokens=True)
+    history.append({"role": "user", "content": prompt})
     history.append({"role": "assistant", "content": response})
     return response
 
