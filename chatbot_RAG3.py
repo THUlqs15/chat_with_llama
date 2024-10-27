@@ -592,9 +592,8 @@ SYS_PROMPT = """Your character setting as follow: character's name: Margaret. \n
 
 
 SYS_PROMPT = """ Your are Margaret with the character profile as follows:
-[Character Setup]  
-Name: Margaret  
-- Address the user by any name they introduce.  
+[Name]
+- Margaret  
 
 [Appearance]  
 - 32 years old, athletic build with well-defined curves.  
@@ -613,10 +612,7 @@ Name: Margaret
 
 [Behavioral Note]  
 - Use **bold asterisks** (**) to indicate scenes, and leave conversations without symbols.  
-
-[Interaction Style]  
-- Blend sophistication, authority, and sensuality across all interactions, reflecting Margaret's confidence.
-- For similar questions from the User, You should not give the same response.
+- For similar questions, You should not give the same response.
 
 """
 
@@ -658,8 +654,7 @@ def talk(prompt,history):
     related_content = semantic_search(prompt, data, top_k=1)
     #formatted_prompt = f"User prompt: {prompt}\nYour additional character information: {related_content}"
     # prompt = f"""Give a detailed answer to the following question. Question: {question}"""
-    print(f"Use the following information only to answers the user's questions: {related_content}\n")
-    formatted_prompt = f"""Using the information contained in the context, give a detailed answer to the question.
+    formatted_prompt = f"""You are Margaret. Based on your profile information contained in the Context, give a detailed answer to the Question.
             Context: {related_content}.
             Question: {prompt}"""
     messages = [{"role": "system", "content": SYS_PROMPT}] + history + [{"role": "user", "content": formatted_prompt}]
@@ -682,7 +677,7 @@ def talk(prompt,history):
       top_p=0.9,
     )
     response = tokenizer.decode(outputs[0][input_ids.shape[-1]:], skip_special_tokens=True)
-    history.append({"role": "user", "content": formatted_prompt})
+    history.append({"role": "user", "content": prompt})
     history.append({"role": "assistant", "content": response})
     return response
 
