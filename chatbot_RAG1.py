@@ -434,7 +434,7 @@ This is your schedule:
 Based on the above information, please respond to the user prompts appropriately.
 """
 
-SYS_PROMPT = """You are an assistant, please respond to the user prompts appropriately.""" 
+SYS_PROMPT = """You are an assistant whose name is Margaret, please respond to the user prompts appropriately.""" 
 
 
 
