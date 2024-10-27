@@ -13,7 +13,6 @@ import json
 import faiss
 from typing import List, Dict, Any, Union
 import random
-
 model_id = "/workspace/LLaMA-Factory/models"
 adapter_name_or_path = "/workspace/LLaMA-Factory/saves_lora/2"
 
