@@ -645,7 +645,7 @@ def format_prompt(prompt, related_content):
     # 将 prompt 和相关内容整合为一个输入字符串
     PROMPT = f"User prompt: {prompt}\nAssitant's profile information:"
     for item in related_content:
-        PROMPT += f"\n\nTopic: {item['topic']}\nContent: {item['content']}"
+        PROMPT += f"\n{item['topic']}: {item['content']}"
     return PROMPT
 
 
@@ -654,7 +654,7 @@ def format_prompt(prompt, related_content):
 def talk(prompt,history):
     if history is None:
         history = []
-    related_content = semantic_search(prompt, data, top_k=3)
+    related_content = semantic_search(prompt, data, top_k=1)
     #formatted_prompt = f"User prompt: {prompt}\nYour additional character information: {related_content}"
     history.append({"role": "user", "content": prompt})
     history.append({"role": "system", "content": f"Use the following information only to answers the user's questions: {related_content}"})
