@@ -9,10 +9,11 @@ from sentence_transformers import SentenceTransformer
 from datasets import load_dataset
 from peft import PeftModel
 import time
+import random
 import json
 import faiss
 from typing import List, Dict, Any, Union
-import random
+
 model_id = "/workspace/LLaMA-Factory/models"
 adapter_name_or_path = "/workspace/LLaMA-Factory/saves_lora/2B+Rayna+Nami+Magreata+1.1Base+2"
 
