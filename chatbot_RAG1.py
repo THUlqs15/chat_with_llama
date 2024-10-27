@@ -465,7 +465,7 @@ def talk(prompt,history):
     #formatted_prompt = format_prompt(prompt,related_content)
     #formatted_prompt = f"User prompt: {prompt}\nAssitant's profile information: {related_content}"
     history.append({"role": "user", "content": prompt})
-    messages =  history + [{"role": "system", "content": SYS_PROMPT}]
+    messages = [{"role": "system", "content": SYS_PROMPT}] + history
     seed = random.randint(0,10000)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
