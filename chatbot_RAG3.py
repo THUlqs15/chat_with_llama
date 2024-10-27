@@ -657,9 +657,12 @@ def talk(prompt,history):
         history = []
     related_content = semantic_search(prompt, data, top_k=1)
     #formatted_prompt = f"User prompt: {prompt}\nYour additional character information: {related_content}"
-    history.append({"role": "user", "content": prompt})
-    history.append({"role": "system", "content": f"Use the following information only to answers the user's questions: {related_content}"})
-    messages = history + [{"role": "system", "content": SYS_PROMPT}]
+    # prompt = f"""Give a detailed answer to the following question. Question: {question}"""
+    print(f"Use the following information only to answers the user's questions: {related_content}\n")
+    formatted_prompt = f"""Using the information contained in the context, give a detailed answer to the question.
+            Context: {related_content}.
+            Question: {prompt}"""
+    messages = [{"role": "system", "content": SYS_PROMPT}] + history + [{"role": "user", "content": formatted_prompt}]
     seed = random.randint(0,10000)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
@@ -679,6 +682,7 @@ def talk(prompt,history):
       top_p=0.9,
     )
     response = tokenizer.decode(outputs[0][input_ids.shape[-1]:], skip_special_tokens=True)
+    history.append({"role": "user", "content": formatted_prompt})
     history.append({"role": "assistant", "content": response})
     return response
 
