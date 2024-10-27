@@ -637,7 +637,7 @@ def semantic_search(query: str, corpus: List[Dict[str, Any]], top_k: int = 1) ->
         related_content = ""
     else:
         for result in results:
-            related_content += f"\n\nTopic: {result['topic']}\nContent: {result['content']}"
+            related_content += f"\n{result['topic']}: {result['content']}"
     return related_content
 
 
