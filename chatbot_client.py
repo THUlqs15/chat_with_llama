@@ -16,7 +16,7 @@ from typing import List, Dict, Any, Union
 import requests
 
 # API endpoints for model
-model_url = "http://127.0.0.1:8001/api/generate"  # Assuming chatbot_server.py is running on port 8001
+model_url = "http://127.0.0.1:8003/api/generate"  # Assuming chatbot_server.py is running on port 8001
 
 
 SYS_PROMPT = """
