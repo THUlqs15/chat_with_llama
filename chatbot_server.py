@@ -38,7 +38,7 @@ terminators = [
 ]
 
 class RequestData(BaseModel):
-    history: list[str]
+    history: List[Dict[str, str]]
     prompt: str
     SYS_PROMPT: str
 
