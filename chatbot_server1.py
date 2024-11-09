@@ -28,3 +28,7 @@ async def chat(request: Request):
         user_histories[user_id] = user_histories[user_id][-20:]
 
     return {"response": response}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8001)
